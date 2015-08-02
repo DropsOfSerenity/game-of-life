@@ -2,6 +2,9 @@ require 'gosu'
 require_relative 'gol.rb'
 
 class GOLWindow < Gosu::Window
+
+  UPDATE_TIME = 50
+
   def initialize
     super 640, 480
     @height = 480
@@ -21,10 +24,15 @@ class GOLWindow < Gosu::Window
     # create the world.
     @world = World.new(@rows, @columns)
     @game = Game.new(@world)
+
+    @last_time = Gosu::milliseconds
   end
 
   def update
-    @game.tick!
+    if Gosu::milliseconds - @last_time > GOLWindow::UPDATE_TIME
+      @game.tick!
+      @last_time = Gosu::milliseconds
+    end
   end
 
   def draw
