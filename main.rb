@@ -3,13 +3,12 @@ require_relative 'gol.rb'
 
 class GOLWindow < Gosu::Window
 
-  UPDATE_TIME = 50
+  UPDATE_TIME = 10
 
   def initialize
-    super 640, 480
-    @height = 480
-    @width = 640
-    super width, height
+    @height = 700
+    @width = 1300
+    super @width, @height
     self.caption = "Game of Life"
 
     @background = Gosu::Color.new(0xffdedede)

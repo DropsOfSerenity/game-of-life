@@ -1,6 +1,5 @@
 require 'rspec'
 require_relative '../gol.rb'
-require 'pp'
 
 describe 'Game Of Life' do
 
