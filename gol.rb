@@ -1,9 +1,3 @@
-class NilClass
-  def [](*)
-    nil
-  end
-end
-
 class Game
   attr_accessor :world
 
@@ -92,17 +86,20 @@ class World
     # |_|_|_|
     # |_|x|_|
     # |_|_|_|
-
-    candidates = [
-                  @cell_grid[cell.y + 1][cell.x],
-                  @cell_grid[cell.y][cell.x + 1],
-                  @cell_grid[cell.y + 1][cell.x + 1],
-                 ]
+    candidates = []
+    candidates << @cell_grid[cell.y + 1][cell.x] if cell.y < (@rows - 1)
+    candidates << @cell_grid[cell.y][cell.x + 1] if cell.x < (@columns - 1)
+    candidates << @cell_grid[cell.y + 1][cell.x + 1] if
+      cell.x < @columns - 1 && cell.y < @rows - 1
     candidates << @cell_grid[cell.y][cell.x - 1] if cell.x > 0
-    candidates << @cell_grid[cell.y + 1][cell.x - 1] if cell.x > 0
-    candidates << @cell_grid[cell.y - 1][cell.x - 1] if cell.x > 0 && cell.y > 0
+    candidates << @cell_grid[cell.y + 1][cell.x - 1] if
+      cell.x > 0 && cell.y < @rows - 1
+    candidates << @cell_grid[cell.y - 1][cell.x - 1] if
+      cell.x > 0 && cell.y > 0
     candidates << @cell_grid[cell.y - 1][cell.x] if cell.y > 0
-    candidates << @cell_grid[cell.y - 1][cell.x + 1] if cell.y > 0
+    candidates << @cell_grid[cell.y - 1][cell.x + 1] if
+      cell.y > 0 && cell.x < @columns - 1
+
     alive = []
     candidates.each do |candidate|
       if (!candidate.nil?) && candidate.alive?
