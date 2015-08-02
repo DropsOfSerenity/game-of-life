@@ -52,7 +52,7 @@ class Game
 
   def seed_randomly
     @world.all_cells.each do |cell|
-      cell.alive = true if rand(1..100) > 80
+      cell.alive = true if rand(1..100) > 50
     end
   end
 end
